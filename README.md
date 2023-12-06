@@ -1,4 +1,4 @@
-# go_practice
+# go practice
 reusable go functions
 
 examples as follows:
