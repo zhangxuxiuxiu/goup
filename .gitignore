@@ -19,3 +19,11 @@
 
 # Go workspace file
 go.work
+
+.idea
+product_loader
+product_gen_insert
+product_gen_update
+product_gen_delete
+insurance_product_configuration
+
