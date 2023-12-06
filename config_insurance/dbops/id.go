@@ -9,11 +9,11 @@ func IdFn(t reflect.Type) reflect.Type {
 	return reflect.FuncOf([]reflect.Type{t, t}, []reflect.Type{reflect.TypeOf(true)}, false)
 }
 
-func CallId(equal reflect.Value, a, b any) bool {
+func CallId(equal reflect.Value, a, b interface{}) bool {
 	return equal.Call([]reflect.Value{reflect.ValueOf(a), reflect.ValueOf(b)})[0].Bool()
 }
 
-func Identical(a, b any) bool {
+func Identical(a, b interface{}) bool {
 	t1, t2 := reflect.TypeOf(a), reflect.TypeOf(b)
 	if t1 != t2 {
 		//panic("a&b should be same type in Identical")

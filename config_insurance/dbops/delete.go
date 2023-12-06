@@ -10,7 +10,7 @@ type GenDelete interface {
 	GenDeleteSql() string
 }
 
-func Delete(e any, tableName string) string {
+func Delete(e interface{}, tableName string) string {
 	if isNil(e) {
 		return ""
 	}

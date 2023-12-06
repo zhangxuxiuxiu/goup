@@ -9,12 +9,12 @@ func EqualFn(t reflect.Type) reflect.Type {
 	return reflect.FuncOf([]reflect.Type{t, t}, []reflect.Type{reflect.TypeOf(true)}, false)
 }
 
-func CallEqual(equal reflect.Value, a, b any) bool {
+func CallEqual(equal reflect.Value, a, b interface{}) bool {
 	return equal.Call([]reflect.Value{reflect.ValueOf(a), reflect.ValueOf(b)})[0].Bool()
 }
 
 // Equal compare basic type field in struct
-func Equal(a, b any) bool {
+func Equal(a, b interface{}) bool {
 	ta, tb := reflect.TypeOf(a), reflect.TypeOf(b)
 	if ta != tb {
 		return false
@@ -55,7 +55,7 @@ func Equal(a, b any) bool {
 	return true
 }
 
-func EqualBasic(a, b any) bool {
+func EqualBasic(a, b interface{}) bool {
 	ta, tb := reflect.TypeOf(a), reflect.TypeOf(b)
 	if ta != tb {
 		panic("a&b should be same type in EqualBasic")

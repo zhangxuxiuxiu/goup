@@ -10,9 +10,9 @@ type GenInsert interface {
 	GenInsertSql() string
 }
 
-var uniqRecord = map[string]any{}
+var uniqRecord = map[string]interface{}{}
 
-func Insert(e any, tableName string) string {
+func Insert(e interface{}, tableName string) string {
 	if isNil(e) {
 		return ""
 	}
@@ -34,7 +34,7 @@ func Insert(e any, tableName string) string {
 		t, v = t.Elem(), v.Elem()
 	}
 	if t.Kind() != reflect.Struct {
-		panic(fmt.Sprintf("only struct is supported in Insert(any,tableName),{error type:%v}", t.Kind()))
+		panic(fmt.Sprintf("only struct is supported in Insert(interface{},tableName),{error type:%v}", t.Kind()))
 	}
 
 	var insertNames []string
@@ -88,7 +88,7 @@ func Insert(e any, tableName string) string {
 	return strings.Join(trimLines(subSqls), "\n")
 }
 
-func stringify(v any) string {
+func stringify(v interface{}) string {
 	if reflect.TypeOf(v).Kind() == reflect.String {
 		return fmt.Sprintf("'%v'", v)
 	} else {

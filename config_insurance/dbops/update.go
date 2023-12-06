@@ -42,7 +42,7 @@ func isNil(i interface{}) bool {
 	return false
 }
 
-func Update(p, p2 any, tableName string) string {
+func Update(p, p2 interface{}, tableName string) string {
 	// ensure the same entity
 	if !Identical(p, p2) {
 		sql := ""
@@ -64,7 +64,7 @@ func Update(p, p2 any, tableName string) string {
 	}
 	t, v1, v2 = t.Elem(), v1.Elem(), v2.Elem()
 	if t.Kind() != reflect.Struct {
-		panic(fmt.Sprintf("only struct is supported in Update(any,any,tableName),{error type:%v}", t.Kind()))
+		panic(fmt.Sprintf("only struct is supported in Update(interface{},interface{},tableName),{error type:%v}", t.Kind()))
 	}
 
 	var idCols []string
@@ -152,7 +152,7 @@ func trimLines(lines []string) []string {
 	return sentences
 }
 
-func find(slice reflect.Value, v any) int {
+func find(slice reflect.Value, v interface{}) int {
 	for i := 0; i < slice.Len(); i++ {
 		up := slice.Index(i).Interface()
 		if Identical(up, v) {
@@ -167,12 +167,12 @@ func find(slice reflect.Value, v any) int {
 //	return reflect.FuncOf([]reflect.Type{t, t}, []reflect.Type{reflect.TypeOf("")}, false)
 //}
 //
-//func CallUpdateTo(updateTo reflect.Value, a, b any) string {
+//func CallUpdateTo(updateTo reflect.Value, a, b interface{}) string {
 //	return updateTo.Call([]reflect.Value{reflect.ValueOf(a), reflect.ValueOf(b)})[0].String()
 //}
 //
 //// updateTo p&p2 of the same type and has method func (*T)UpdateTo(*T) string
-//func updateTo(p, p2 any) string {
+//func updateTo(p, p2 interface{}) string {
 //	t := reflect.TypeOf(p)
 //	if updateToFn, exist := t.MethodByName("UpdateTo"); exist {
 //		if updateToFn.Type == UpdateToFn(t) {
